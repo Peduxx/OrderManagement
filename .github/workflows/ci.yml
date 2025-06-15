@@ -25,10 +25,3 @@ jobs:
 
       - name: Run tests
         run: dotnet test OrderManagement.sln --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
-
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v3
-        if: success()
-        with:
-          file: "**/coverage.cobertura.xml"
-          fail_ci_if_error: false
