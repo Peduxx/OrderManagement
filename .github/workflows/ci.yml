@@ -2,33 +2,33 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0.x'
-        
-    - name: Restore dependencies
-      run: dotnet restore src/
-      
-    - name: Build solution
-      run: dotnet build src/ --configuration Release --no-restore
-      
-    - name: Run tests
-      run: dotnet test src/ --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
-      
-    - name: Upload coverage reports
-      uses: codecov/codecov-action@v3
-      if: success()
-      with:
-        file: '**/coverage.cobertura.xml'
-        fail_ci_if_error: false
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore OrderManagement.sln
+
+      - name: Build solution
+        run: dotnet build OrderManagement.sln --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test OrderManagement.sln --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        if: success()
+        with:
+          file: "**/coverage.cobertura.xml"
+          fail_ci_if_error: false
